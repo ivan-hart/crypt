@@ -97,13 +97,14 @@
             return random_num();
         }
     };
-    function reencrypt(msg) {
+    function crypt(msg) {
         console.clear();
         // @ts-ignore
 
         let encrypted = "";
         let arr = msg.split("");
         console.log(arr);
+        arr.pop()
         arr.map((letter) => {
             let num = random_num();
             let index = alp.indexOf(letter) + 1;
@@ -112,12 +113,11 @@
             {
                 encrypted+="-"
             }
-            console.log(`${index} ${num}`);
         });
 
         if (encrypted.includes("NaN") || encrypted.includes("undefined")) {
             encrypted = "";
-            reencrypt(msg)
+            crypt(msg)
             return
         }
 
@@ -128,30 +128,7 @@
         console.clear();
         e.preventDefault();
         // @ts-ignore
-        let message = document.getElementById("input").value;
-
-        let encrypted = "";
-        let arr = message.split("");
-        console.log(arr);
-        arr.map((letter) => {
-            let num = random_num();
-            let index = alp.indexOf(letter) + 1;
-            encrypted += `${index * num}-${num}`;
-            if (message.indexOf(letter) != message.length)
-            {
-                encrypted+="-"
-            }
-            console.log(`${index} ${num}`);
-        });
-
-        if (encrypted.includes("NaN") || encrypted.includes("undefined")) {
-            encrypted = "";
-            reencrypt(message)
-            return
-        }
-
-        // @ts-ignore
-        document.getElementById("output").value = encrypted;
+        crypt(document.getElementById("input").value)
     }
     function decrypt(e) {
         e.preventDefault();
