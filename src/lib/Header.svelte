@@ -94,23 +94,61 @@
         if (num > 0) {
             return num;
         } else {
-            random_num();
+            return random_num();
         }
     };
+    function reencrypt(msg) {
+        console.clear();
+        // @ts-ignore
+
+        let encrypted = "";
+        let arr = msg.split("");
+        console.log(arr);
+        arr.map((letter) => {
+            let num = random_num();
+            let index = alp.indexOf(letter) + 1;
+            encrypted += `${index * num}-${num}`;
+            if (msg.indexOf(letter) != msg.length)
+            {
+                encrypted+="-"
+            }
+            console.log(`${index} ${num}`);
+        });
+
+        if (encrypted.includes("NaN") || encrypted.includes("undefined")) {
+            encrypted = "";
+            reencrypt(msg)
+            return
+        }
+
+        // @ts-ignore
+        document.getElementById("output").value = encrypted;
+    }
     function encrypt(e) {
+        console.clear();
         e.preventDefault();
         // @ts-ignore
         let message = document.getElementById("input").value;
 
-        message = message.toLowerCase();
-
         let encrypted = "";
         let arr = message.split("");
+        console.log(arr);
         arr.map((letter) => {
             let num = random_num();
             let index = alp.indexOf(letter) + 1;
-            encrypted += `${index * num} ${num} `;
+            encrypted += `${index * num}-${num}`;
+            if (message.indexOf(letter) != message.length)
+            {
+                encrypted+="-"
+            }
+            console.log(`${index} ${num}`);
         });
+
+        if (encrypted.includes("NaN") || encrypted.includes("undefined")) {
+            encrypted = "";
+            reencrypt(message)
+            return
+        }
 
         // @ts-ignore
         document.getElementById("output").value = encrypted;
@@ -121,7 +159,12 @@
         let message = document.getElementById("input").value;
 
         let decrypted = "";
-        let arr = message.split(" ");
+        let arr = message.split("-");
+
+        arr = arr.filter((letter) => {
+            return letter !== ""
+        })
+
         console.log(arr);
         for (let i = 0; i < arr.length; i += 2) {
             let index = parseInt(arr[i]);
