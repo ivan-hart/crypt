@@ -104,12 +104,11 @@
         let encrypted = "";
         let arr = msg.split("");
         console.log(arr);
-        arr.pop()
         arr.map((letter) => {
             let num = random_num();
             let index = alp.indexOf(letter) + 1;
             encrypted += `${index * num}-${num}`;
-            if (msg.indexOf(letter) != msg.length)
+            if (msg.indexOf(letter) < msg.length - 1)
             {
                 encrypted+="-"
             }
