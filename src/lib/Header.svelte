@@ -199,6 +199,7 @@
         background-color: #edddd4;
         padding: 10px;
         width: 100%;
+        height: 250px;
         outline: none;
     }
     #input:focus {
@@ -232,7 +233,7 @@
     @media screen and (max-width: 600px) {
         textarea {
             max-width: 300px;
-            height: 250px;
+            height: 200px;
             width: 100%;
         }
         button {
