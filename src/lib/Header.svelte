@@ -27,6 +27,32 @@
         "x",
         "y",
         "z",
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N",
+        "O",
+        "P",
+        "Q",
+        "R",
+        "S",
+        "T",
+        "U",
+        "V",
+        "W",
+        "X",
+        "Y",
+        "Z",
         "1",
         "2",
         "3",
@@ -60,61 +86,56 @@
         "'",
         "<",
         ">",
+        ":",
         " ",
     ];
+    const random_num = () => {
+        let num = Math.floor(Math.random() * 100);
+        if (num > 0) {
+            return num;
+        } else {
+            random_num();
+        }
+    };
     function encrypt(e) {
         e.preventDefault();
         // @ts-ignore
-        let input = document.getElementById("input").value;
+        let message = document.getElementById("input").value;
 
-        input = input.toLowerCase();
+        message = message.toLowerCase();
 
-        input = input.split("");
-
-        let output = [];
-
-        input.map((l) => {
-            let num = Math.floor(Math.random() * 100);
-            output.push(alp.indexOf(l) * num);
-            output.push(num);
+        let encrypted = "";
+        let arr = message.split("");
+        arr.map((letter) => {
+            let num = random_num();
+            let index = alp.indexOf(letter) + 1;
+            encrypted += `${index * num} ${num} `;
         });
 
-        let res = "";
-
-        for (let i = 0; i < output.length; i++) {
-            res += output[i];
-            if (i !== output.length - 1) {
-                res += "-";
-            }
-        }
-
         // @ts-ignore
-        document.getElementById("output").value = res;
+        document.getElementById("output").value = encrypted;
     }
     function decrypt(e) {
         e.preventDefault();
         // @ts-ignore
-        let input = document.getElementById("input").value;
+        let message = document.getElementById("input").value;
 
-        input = input.split("-");
-
-        let output = [];
-
-        for (let i = 0; i < input.length; i += 2) {
-            output.push(alp[input[i] / input[i + 1]]);
+        let decrypted = "";
+        let arr = message.split(" ");
+        console.log(arr);
+        for (let i = 0; i < arr.length; i += 2) {
+            let index = parseInt(arr[i]);
+            let num = parseInt(arr[i + 1]);
+            decrypted += alp[index / num - 1];
         }
-        let res = "";
-        for (let i = 0; i < output.length; i++) {
-            if (output[i] === undefined) {
-                alert("Invalid Input, make sure that there aren't any double hyphens and that the input hasn't been encrypted twice.")
-                res = ""
-                break;
-            }
-            res += output[i];
+
+        if (decrypted.includes("NaN") || decrypted.includes("undefined")) {
+            decrypted = "";
+            alert("Invalid Input, there are double spaces or the message was encrypted twice.")
         }
 
         // @ts-ignore
-        document.getElementById("output").value = res;
+        document.getElementById("output").value = decrypted;
     }
 </script>
 
@@ -136,12 +157,12 @@
                 <button class="text-white" on:click={decrypt}>DECRYPT</button>
             </div>
             <textarea
-            name="output"
-            id="output"
-            cols="60"
-            rows="15"
-            autocomplete="on"
-            readonly
+                name="output"
+                id="output"
+                cols="60"
+                rows="15"
+                autocomplete="on"
+                readonly
             />
             <label class="text-white h1" for="output">OUTPUT</label>
         </div>
