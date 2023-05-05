@@ -1,0 +1,30 @@
+* {
+    font-family: 'Open Sans', sans-serif;
+    /*border: 1px solid red;*/
+}
+body {
+    background-color: #151528;
+}
+.flex {
+    display: flex;
+}
+.center {
+    justify-content: center;
+    align-items: center;
+}
+.space-between {
+    justify-content: space-between;
+}
+.col {
+    flex-direction: column;
+}
+.row {
+    flex-direction: row;
+}
+.text-white {
+    color: #fff;
+}
+.h1 {
+    font-size: 2.9em;
+    font-weight: 700;
+}
